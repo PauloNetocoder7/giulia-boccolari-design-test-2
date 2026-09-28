@@ -1,0 +1,333 @@
+@import "tailwindcss";
+
+/*
+  Portici di Modena
+  Plaster fields at page scale, marble plaques, iron hairlines.
+  The five brief colours are the plaster; deeper shades exist only where
+  text must sit on them at WCAG AA.
+*/
+
+@theme {
+  --color-salvia: #A8B7A1;
+  --color-salvia-deep: #56654F;
+  --color-salvia-wash: #DCE3D8;
+
+  --color-terracotta: #C8795A;
+  --color-terracotta-deep: #97502F;
+  --color-terracotta-ink: #7E4128;
+
+  --color-rosa: #CFA7A0;
+  --color-rosa-deep: #8A5A52;
+  --color-rosa-wash: #EBD8D3;
+
+  --color-crema: #F6F0E8;
+  --color-marmo: #FBF8F3;
+
+  --color-antracite: #3E4541;
+  --color-ferro: #2B302D;
+  --color-antracite-soft: #5A625D;
+
+  --font-display: "Bodoni Moda", "Bodoni 72", Didot, Georgia, serif;
+  --font-sans: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", -apple-system, "Segoe UI", sans-serif;
+  --font-serif: var(--font-display);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    background: var(--color-ferro);
+    scroll-padding-top: 6.5rem;
+    scrollbar-color: var(--color-antracite-soft) var(--color-crema);
+  }
+
+  body {
+    background-color: var(--color-crema);
+    color: var(--color-antracite);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-variant-numeric: lining-nums;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    color: inherit;
+    text-wrap: balance;
+    font-optical-sizing: none;
+    font-variation-settings: "opsz" 24;
+    font-kerning: normal;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: 1px;
+  }
+
+  ::selection {
+    background: var(--color-terracotta);
+    color: var(--color-marmo);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-terracotta-deep);
+    outline-offset: 3px;
+  }
+
+  input, textarea, select {
+    caret-color: var(--color-terracotta-deep);
+  }
+}
+
+/* ---------- Plaster fields ---------- */
+
+.plaster-rosa { background-color: #F1E4E0; color: var(--color-ferro); border-top: 4px solid var(--color-rosa); }
+.plaster-salvia { background-color: #E6ECE3; color: var(--color-ferro); border-top: 4px solid var(--color-salvia); }
+.plaster-terracotta { background-color: var(--color-terracotta-deep); color: var(--color-crema); }
+.plaster-crema { background-color: var(--color-crema); color: var(--color-antracite); }
+.plaster-ferro { background-color: var(--color-ferro); color: var(--color-crema); }
+
+/* Lime-wash grain: a very quiet mottling so a field reads as painted wall, not flat UI */
+.limewash {
+  position: relative;
+  isolation: isolate;
+}
+.limewash::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.03' numOctaves='3' seed='7'/><feColorMatrix values='0 0 0 0 0.55  0 0 0 0 0.45  0 0 0 0 0.4  0 0 0 0.16 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* ---------- Layout: bays and pillars ---------- */
+
+.portico {
+  width: 100%;
+  max-width: 88rem;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 3.5rem);
+}
+
+/* A pillar is a hairline of iron running the full height of a bay */
+.pillar-l { border-left: 1px solid color-mix(in oklab, currentColor 28%, transparent); }
+.pillar-r { border-right: 1px solid color-mix(in oklab, currentColor 28%, transparent); }
+.rule-t { border-top: 1px solid color-mix(in oklab, currentColor 28%, transparent); }
+.rule-b { border-bottom: 1px solid color-mix(in oklab, currentColor 28%, transparent); }
+
+/* ---------- Type ---------- */
+
+.display-xxl {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.3vw, 2.9rem);
+  font-variation-settings: "opsz" 32;
+  line-height: 1.1;
+  letter-spacing: -0.012em;
+  font-weight: 500;
+}
+.display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 2.9vw, 2.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  font-weight: 500;
+}
+.display-l {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.3vw, 2.05rem);
+  line-height: 1.15;
+  letter-spacing: -0.006em;
+  font-weight: 500;
+}
+.display-m {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 1.7vw, 1.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 500;
+}
+.display-s {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  line-height: 1.25;
+  font-weight: 600;
+}
+
+.lede {
+  font-size: clamp(1.05rem, 1.2vw, 1.15rem);
+  line-height: 1.6;
+  max-width: 62ch;
+}
+.measure { max-width: 68ch; }
+
+/* Civic lettering, as cut into a street plaque */
+.civic {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 11;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+/* ---------- Marble street plaque ---------- */
+
+.plaque {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  background: var(--color-marmo);
+  color: var(--color-ferro);
+  padding: 0.7rem 1rem 0.75rem;
+  border: 1px solid color-mix(in oklab, var(--color-ferro) 55%, transparent);
+}
+.plaque .civic { font-size: 0.72rem; }
+.plaque--quiet {
+  box-shadow: none;
+  padding: 0.5rem 0.8rem 0.55rem;
+}
+
+/* ---------- Doors (buttons) ---------- */
+
+.door {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3.1rem;
+  padding: 0.8rem 1.4rem 0.85rem;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-decoration: none;
+  border-radius: 2px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.35s var(--ease-out-expo), color 0.35s var(--ease-out-expo), box-shadow 0.35s var(--ease-out-expo);
+  box-shadow: inset 0 -3px 0 0 var(--threshold, transparent);
+}
+.door svg { transition: transform 0.35s var(--ease-out-expo); }
+.door:hover svg { transform: translateX(3px); }
+.door--iron { background: var(--color-ferro); color: var(--color-crema); --threshold: var(--color-terracotta); }
+.door--iron:hover { background: var(--color-antracite); box-shadow: inset 0 -6px 0 0 var(--color-terracotta); }
+.door--terra { background: var(--color-terracotta-deep); color: var(--color-marmo); --threshold: var(--color-terracotta-ink); }
+.door--terra:hover { background: var(--color-terracotta-ink); box-shadow: inset 0 -6px 0 0 var(--color-terracotta); }
+.door--marble { background: var(--color-marmo); color: var(--color-ferro); box-shadow: inset 0 0 0 1px var(--color-ferro); }
+.door--marble:hover { box-shadow: inset 0 0 0 1px var(--color-ferro), inset 0 -6px 0 0 var(--color-terracotta); }
+.door:disabled { opacity: 0.6; cursor: progress; }
+
+/* Text link with a painted underline that thickens */
+.walk {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+  transition: text-decoration-thickness 0.25s var(--ease-out-expo), text-underline-offset 0.25s var(--ease-out-expo);
+}
+.walk:hover { text-decoration-thickness: 3px; text-underline-offset: 0.36em; }
+.walk svg { flex-shrink: 0; transition: transform 0.3s var(--ease-out-expo); }
+.walk:hover svg { transform: translateX(3px); }
+
+/* ---------- Arches ---------- */
+
+.arch {
+  border-radius: 0;
+  overflow: hidden;
+}
+.arch-frame {
+  border-radius: 0;
+  padding: 0.5rem;
+  background: var(--color-marmo);
+  box-shadow: inset 0 0 0 1px var(--color-ferro);
+}
+
+/* The arch opens once, on first paint */
+@keyframes arch-open {
+  from { clip-path: inset(100% 0 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+@keyframes plaque-hang {
+  from { transform: translateY(-14px) rotate(-1.2deg); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+.arch-open { animation: none; }
+.plaque-hang { animation: none; }
+
+/* ---------- Ruled lists (replace icon-card grids) ---------- */
+
+.ruled > * {
+  border-top: 1px solid color-mix(in oklab, currentColor 26%, transparent);
+}
+.ruled > *:last-child {
+  border-bottom: 1px solid color-mix(in oklab, currentColor 26%, transparent);
+}
+
+/* A tiny arch used as a list marker */
+.tick {
+  display: inline-block;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 0;
+  transform: translateY(-0.12em);
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+/* ---------- Method arcade (signature) ---------- */
+
+.station {
+  transition: background-color 0.6s var(--ease-out-expo), color 0.6s var(--ease-out-expo);
+}
+.station[data-state="ahead"] { background: transparent; }
+.station[data-state="here"] { background: var(--color-terracotta-deep); color: var(--color-marmo); }
+.station[data-state="walked"] { background: var(--color-salvia); color: var(--color-ferro); }
+
+/* ---------- Form fields ---------- */
+
+.field {
+  width: 100%;
+  background: var(--color-marmo);
+  border: 0;
+  border-bottom: 1.5px solid var(--color-ferro);
+  padding: 0.85rem 0.9rem;
+  font-size: 1rem;
+  color: var(--color-ferro);
+  border-radius: 0.2rem 0.2rem 0 0;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+.field::placeholder { color: #6F7671; }
+.field:focus { outline: none; background: #fff; box-shadow: inset 0 -3px 0 0 var(--color-terracotta-deep); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Bodoni hairlines vanish at the display optical size on screens; hold the text optical size */
+.font-display, .display-xl, .display-l, .display-m, .display-s {
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" 24;
+  font-kerning: normal;
+}
